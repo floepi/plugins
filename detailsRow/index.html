@@ -1,0 +1,282 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta name="author" content="Philip Floetotto">
+	<meta name="keywords" content="jquery plugin ajax details table row toggle">
+	<title>Jquery Plugin: Detailsrow by Philip Floetotto</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/simple.css">
+	<link rel="stylesheet" href="css/jquery.fader.css">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.detailsRow.js"></script>
+	<script type="text/javascript" src="js/jquery.tablesorter.js"></script>
+</head>
+<body>
+
+<div class="limiter">
+	<h1>Jquery Plugin: Detailsrow - easily show more info in your data tables</h1>
+	<p>
+		<b>Author:</b>
+		<a class="external" href="http://www.webworkflow.co.uk/" target="_new">Philip Floetotto</a>
+		<br/>
+		<b>Version:</b>
+		1.0
+		<br/>
+		<b>Download:</b>
+		<a href="js/jquery.detailsRow.js" title="Download the js file"><b>jquery.detailsRow.js</b> (3 kb)</a>
+		<br/>
+		<b>Note:</b>
+		Internet Explorer bug fixed thanks to Sebastien Creme
+		<br/>
+	</p>
+	
+	<h2>
+		Introduction
+	</h2>
+	<p>
+		You often find yourself short off valuable screenspace and your users ask for just that little more information on the data rows in your table. 
+		Being forced to create these "toggle detailed rows" for clients quite often I decided to use a little Jquery magic to add these rows 
+		automatically for me. The data is retrieved using ajax. You can define an html attribute in the table row, for example the id, 
+		which will be passed through to the URL in the POST variables. 	 
+	</p>
+	<p>
+		The plugin should be very easy to configure. Please have a look at the following example to get an idea about how it works. 
+	</p>
+	
+	<h3>
+		Example - using basic ajax to retrieve info
+	</h3>
+	<p>
+		In this simple example we use we retrieve data using the id Attribute in the TR Element. The information is send to process.php where
+		it is processed and returns data depending on which id has been passed. If no id was passed, we return sample data. 
+	</p>
+	<table cellspacing="1" cellpadding="0" border="0" class="tablesorter" id="table1">
+		<thead>
+			<tr>
+				<th class="header">First Name</th>
+				<th class="header">Last Name</th>
+				<th class="header">Age</th>
+				<th class="header">Total</th>
+				<th class="header">Discount</th>
+				<th class="header">Difference</th>
+				<th class="header">Date</th>
+			</tr>
+		</thead>
+		<tbody>
+		<tr class="even" id="1">
+				<td>Bruce</td>
+				<td>Almighty</td>
+				<td>45</td>
+				<td>$153.19</td>
+				<td>44.7%</td>
+				<td>+77</td>
+				<td>Jan 18, 2001 9:12 AM</td>
+			</tr>
+			<tr class="odd" id="2">
+				<td>Bruce</td>
+				<td>Evans</td>
+				<td>22</td>
+				<td>$13.19</td>
+				<td>11%</td>
+				<td>-100.9</td>
+				<td>Jan 18, 2007 9:12 AM</td>
+			</tr>
+			<tr class="even" id="3">
+				<td>Clark</td>
+				<td>Kent</td>
+				<td>18</td>
+				<td>$15.89</td>
+				<td>44%</td>
+				<td>-26</td>
+				<td>Jan 12, 2003 11:14 AM</td>
+			</tr>
+			<tr class="odd">
+				<td>John</td>
+				<td>Hood</td>
+				<td>33</td>
+				<td>$19.99</td>
+				<td>25%</td>
+				<td>+12</td>
+				<td>Dec 10, 2002 5:14 AM</td>
+			</tr>
+			<tr class="even">
+				<td>Peter</td>
+				<td>Parker</td>
+				<td>28</td>
+				<td>$9.99</td>
+				<td>20.9%</td>
+				<td>+12.1</td>
+				<td>Jul 6, 2006 8:14 AM</td>
+			</tr>
+		</tbody>
+	</table>
+	<code>
+	DEFINING THE ID IN THE TR ELEMENT:
+	
+	&lt;tr class="even" id="1"&gt;
+		&lt;td&gt;Bruce&lt;/td&gt;
+		&lt;td&gt;Almighty&lt;/td&gt;
+		&lt;td&gt;45&lt;/td&gt;
+		&lt;td&gt;$153.19&lt;/td&gt;
+		&lt;td&gt;44.7%&lt;/td&gt;
+		&lt;td&gt;+77&lt;/td&gt;
+		&lt;td&gt;Jan 18, 2001 9:12 AM&lt;/td&gt;
+	&lt;/tr&gt;
+	&lt;tr class="odd" id="2"&gt;
+		&lt;td&gt;Bruce&lt;/td&gt;
+		&lt;td&gt;Evans&lt;/td&gt;
+		&lt;td&gt;22&lt;/td&gt;
+		&lt;td&gt;$13.19&lt;/td&gt;
+		&lt;td&gt;11%&lt;/td&gt;
+		&lt;td&gt;-100.9&lt;/td&gt;
+		&lt;td&gt;Jan 18, 2007 9:12 AM&lt;/td&gt;
+	&lt;/tr&gt;
+	
+	$(document).ready(function() {
+		$('#table1').detailsRow('process.php',{data:{"id":"id"}});
+	});
+		
+	</code>
+	
+	
+	<h3>
+		Example - using the url attribute to retrieve data (combined with jQuery Tablesorter)
+	</h3>
+	<p>
+		Instead of using just one url and post parameters, we can set a specific URL in the url attribute of the TR element. NOTE - you can mix
+		the two methods as you can observe in this example. 
+	</p>
+	<table cellspacing="1" cellpadding="0" border="0" class="tablesorter" id="table2">
+		<thead>
+			<tr>
+				<th class="header">First Name</th>
+				<th class="header">Last Name</th>
+				<th class="header">Age</th>
+				<th class="header">Total</th>
+				<th class="header">Discount</th>
+				<th class="header">Difference</th>
+				<th class="header">Date</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="even" id="1">
+				<td>Bruce</td>
+				<td>Almighty</td>
+				<td>45</td>
+				<td>$153.19</td>
+				<td>44.7%</td>
+				<td>+77</td>
+				<td>Jan 18, 2001 9:12 AM</td>
+			</tr>
+			<tr class="odd" id="2">
+				<td>Bruce</td>
+				<td>Evans</td>
+				<td>22</td>
+				<td>$13.19</td>
+				<td>11%</td>
+				<td>-100.9</td>
+				<td>Jan 18, 2007 9:12 AM</td>
+			</tr>
+			<tr class="even" id="3">
+				<td>Clark</td>
+				<td>Kent</td>
+				<td>18</td>
+				<td>$15.89</td>
+				<td>44%</td>
+				<td>-26</td>
+				<td>Jan 12, 2003 11:14 AM</td>
+			</tr>
+			<tr class="odd" url="data.html">
+				<td>John</td>
+				<td>Hood</td>
+				<td>33</td>
+				<td>$19.99</td>
+				<td>25%</td>
+				<td>+12</td>
+				<td>Dec 10, 2002 5:14 AM</td>
+			</tr>
+			<tr class="even">
+				<td>Peter</td>
+				<td>Parker</td>
+				<td>28</td>
+				<td>$9.99</td>
+				<td>20.9%</td>
+				<td>+12.1</td>
+				<td>Jul 6, 2006 8:14 AM</td>
+			</tr>
+		</tbody>
+	</table>
+	<code>
+	&lt;tr class=&quot;odd&quot; url=&quot;data.html&quot;&gt;
+		&lt;td&gt;John&lt;/td&gt;
+		&lt;td&gt;Hood&lt;/td&gt;
+		&lt;td&gt;33&lt;/td&gt;
+		&lt;td&gt;$19.99&lt;/td&gt;
+		&lt;td&gt;25%&lt;/td&gt;
+		&lt;td&gt;+12&lt;/td&gt;
+		&lt;td&gt;Dec 10, 2002 5:14 AM&lt;/td&gt;
+	&lt;/tr&gt;
+	
+	$(document).ready(function() {
+		$('#table1').detailsRow('process.php',{data:{"id":"id"}});
+	});
+	</code>
+	
+	<h2>
+		Grabbing the ID on the Backend (PHP)
+	</h2>
+	<p>
+		Several of you have asked me how to access the ID which is being passed. Here is what happens in process.php:
+	</p>
+	<code>
+	switch ($HTTP_POST_VARS['id']) {
+		case 1:
+			echo "data for ID 1 ...";
+		break;
+		case 2:
+			echo "data for ID 2 ...";
+		break;
+		case 3:
+			echo "data for ID 3 ...";
+		break;
+		default:
+			echo "No id was found and therefore no data";
+	}
+	</code>
+	
+	<h2>
+		Known Issues
+	</h2>
+	<p>
+		<ul class="simple">
+			<li>When sorting after a details row has been opened, the order is messed up. Have to remove all detailsRow from DOM when doing so or something... Don't know yet.</li>
+		</ul>
+	</p>
+	<p>
+		<br>
+		Please feel free to send me feedback and suggestions to <a href="mailto:mmeier23@gmail.com">mmeier23@gmail.com</a>
+	</p>
+</div>
+
+</body>
+</html>
+<script>
+$(document).ready(function() {
+	$('#table1').detailsRow('process.php',{data:{"id":"id"}});
+	$('#table2').detailsRow('process.php',{data:{"id":"id"}});
+	$("#table2").tablesorter(); 
+}); 
+
+</script>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1808340-9");
+pageTracker._trackPageview();
+} catch(err) {}</script>
