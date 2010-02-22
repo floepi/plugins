@@ -20,7 +20,7 @@
 		<a class="external" href="http://www.webworkflow.co.uk/" target="_new">Philip Floetotto</a>
 		<br/>
 		<b>Version:</b>
-		1.0
+		1.1
 		<br/>
 		<b>Download:</b>
 		<a href="js/jquery.detailsRow.js" title="Download the js file"><b>jquery.detailsRow.js</b> (3 kb)</a>
@@ -146,6 +146,11 @@
 		Instead of using just one url and post parameters, we can set a specific URL in the url attribute of the TR element. NOTE - you can mix
 		the two methods as you can observe in this example. 
 	</p>
+	<p>
+		
+		NOTICE - use the settings.reload to remove the details row when hiding so the sorting works again. Sorting with a visible detailsRow causes the plugin to break!
+		You need to attach a sortStart function to the table sorter to trigger the onclick of any open rows as well. Please have a look at the code below!
+	</p>
 	<table cellspacing="1" cellpadding="0" border="0" class="tablesorter" id="table2">
 		<thead>
 			<tr>
@@ -218,7 +223,10 @@
 	&lt;/tr&gt;
 	
 	$(document).ready(function() {
-		$('#table1').detailsRow('process.php',{data:{"id":"id"}});
+		$('#table2').detailsRow('process.php',{data:{"id":"id"},reload:true});
+		$("#table2").bind("sortStart",function() { 
+	        	$('td[state=open]').click(); 
+	    	}); 
 	});
 	</code>
 	
@@ -263,8 +271,11 @@
 <script>
 $(document).ready(function() {
 	$('#table1').detailsRow('process.php',{data:{"id":"id"}});
-	$('#table2').detailsRow('process.php',{data:{"id":"id"}});
+	$('#table2').detailsRow('process.php',{data:{"id":"id"},reload:true});
 	$("#table2").tablesorter(); 
+	$("#table2").bind("sortStart",function() { 
+		$('td[state=open]').click(); 
+    }); 
 }); 
 
 </script>

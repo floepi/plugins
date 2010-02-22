@@ -1,9 +1,9 @@
 /************************************************
  *           JQuery Detailsrow
  *           Author: Philip Floetotto
- *           Version: 1
+ *           Version: 1.1
  *           www: www.webworkflow.co.uk
- *           mention: thanks to Sebastien Creme for his help
+ *           mention: thanks to Sebastien Creme and Andreas Buss for their help
  *           Please feel free to use, alter and distribute
  *           
  *           Usage:
@@ -17,6 +17,9 @@
  *           indicatorOpen - html for the open icon ( You can use any html in here)
  *           indicatorClass - which class the td with the indicator gets
  *           data - the data which gets passed in the post. (e.g {"id":"id"}) - means it passes the id of the TR element in post variables named "id"
+ *           loadingClass - which class you would like to give the div which is preloaded into the detailsRow
+ *           loadingMsg - the text which should be displayed while the ajax call fetches the data
+ *           reload - when activated, each time you click the plus, it forces the detailsRow to reload and it will remove the detailsRow when you toggle it instead of just hiding it (used when using the tablesorter). Can be set to true or false 
  *           tdAttributes - using the jQuery syntax you can pass any attributes to the td e.g {colspan:"20",'class':'container'}
  *           trAttributes - using the jQuery syntax you can pass any attributes to the td e.g {'class':"detailsRow"}
  *           onLoad - event gets fired when ajax load is finished, passes the td element with the content
@@ -31,7 +34,9 @@ $.fn.detailsRow = function(url,options){
 		indicatorClosed:"+",
 		indicatorOpen:"-",
 		indicatorClass:"plus",
-		loadingclass: "loading",
+		loadingClass: "loading",
+		loadingMsg: "loading...",
+		reload: false,
 		data: {},
 		tdAttributes: {"colspan":20,"class":"container"},
 		trAttributes: {
@@ -56,7 +61,7 @@ $.fn.detailsRow = function(url,options){
 		var state = $(this).attr("state");
 		var data = {};
 		
-		if(state=='closed'){
+		if(state=='closed' && !settings.reload){
 			$parentRow.next().show();
 			$(this)
 				.attr('state','open')
@@ -64,11 +69,14 @@ $.fn.detailsRow = function(url,options){
 			if(settings.onHide){settings.onHide(this);}
 		
 		}else if(state=='open'){
-			$parentRow.next().hide();
+			if(settings.reload){ // remove the detailsRow
+				$parentRow.next().remove();
+			}else{
+				$parentRow.next().hide();
+			}
 			$(this)
 				.attr('state','closed')
 				.html(settings.indicatorClosed);
-			
 		}else{
 			$(this)
 				.attr('state','open')
@@ -92,7 +100,8 @@ $.fn.detailsRow = function(url,options){
 			
 			// load the data
 			$tr = $("<tr>").attr(settings.trAttributes);
-			$td = $("<td>").attr(settings.tdAttributes).load(tempUrl,data,settings.onLoad);
+			var loadingDiv = $('<div>').addClass(settings.loadingClass).html(settings.loadingMsg);
+			$td = $("<td>").attr(settings.tdAttributes).append(loadingDiv).load(tempUrl,data,settings.onLoad);
 			$td.get(0).colSpan=settings.tdAttributes.colspan; // fix for internet explorer problem
 			$parentRow.after($tr.append($td));
 		}
