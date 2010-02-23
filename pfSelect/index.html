@@ -1,0 +1,270 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta name="author" content="Philip Floetotto">
+	<meta name="keywords" content="jquery plugin ajax select table tablesorter selectable">
+	<title>Jquery Plugin: pfSelect by Philip Floetotto</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/simple.css">
+	<link rel="stylesheet" href="css/general.css">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.pfSelect.js"></script>
+	<script type="text/javascript" src="js/jquery.tablesorter.js"></script>
+</head>
+<body>
+
+<div class="limiter" id="deselectArea">
+	<h1>Jquery Plugin: pfSelect - click drag select for huge datasets</h1>
+	<p>
+		<b>Author:</b>
+		<a class="external" href="http://www.webworkflow.co.uk/" target="_new">Philip Floetotto</a>
+		<br/>
+		<b>Version:</b>
+		1.0
+		<br/>
+		<b>Download:</b>
+		<a href="js/jquery.pfSelect.js" title="Download the js file"><b>jquery.pfSelect.js</b> (3 kb)</a>
+		<br/>
+	</p>
+	
+	<h2>
+		Introduction
+	</h2>
+	<p>
+		This lightweight select plugin allows you to select elements easily by click-drag select, shift select or ctrl select within a huge dataset and without any speed decrease.
+		It adds a mouseover event to each specified element (by default elements with class "selectable") and doesn't calculate any marquee rectangle as the Jquery UI plugin does. Therefore 
+		it has no performance issues with hundreds of elements. Use this plugin if you have tons of elements and you need fluid interactivity.  
+	</p>
+	<p>
+		If you have just a few elements, please have a look at <a class="external" href="http://jqueryui.com/demos/selectable/ " target="_new">Jquery UI selectable</a> plugin
+		as it has more features. If you have tons of elements and need speed, use <b>pfSelect</b>.
+	</p>
+	
+	<h3>
+		Example - defining a "hot" td and selecting the corresponding parent row
+	</h3>
+	<p>
+		In this example the first column is "hot" because we added the class "selectable" to it. By clicking on the td or click dragging you select the 
+		parent row. This is especially helpful when you need to make multiple edits for the selected rows, etc. You can deselect the rows by clicking in any other column
+		or in the deselect area. 
+	</p>
+	<table cellspacing="1" cellpadding="0" border="0" class="tablesorter" id="table1">
+		<thead>
+			<tr>
+				<th class="header">First Name</th>
+				<th class="header">Last Name</th>
+				<th class="header">Age</th>
+				<th class="header">Total</th>
+				<th class="header">Discount</th>
+				<th class="header">Difference</th>
+				<th class="header">Date</th>
+			</tr>
+		</thead>
+		<tbody>
+		<tr class="even" id="1">
+				<td class="selectable bold">Bruce</td>
+				<td>Almighty</td>
+				<td>45</td>
+				<td>$153.19</td>
+				<td>44.7%</td>
+				<td>+77</td>
+				<td>Jan 18, 2001 9:12 AM</td>
+			</tr>
+			<tr class="odd" id="2">
+				<td class="selectable bold">Bruce</td>
+				<td>Evans</td>
+				<td>22</td>
+				<td>$13.19</td>
+				<td>11%</td>
+				<td>-100.9</td>
+				<td>Jan 18, 2007 9:12 AM</td>
+			</tr>
+			<tr class="even" id="3">
+				<td class="selectable bold">Clark</td>
+				<td>Kent</td>
+				<td>18</td>
+				<td>$15.89</td>
+				<td>44%</td>
+				<td>-26</td>
+				<td>Jan 12, 2003 11:14 AM</td>
+			</tr>
+			<tr class="odd" id="4">
+				<td class="selectable bold">John</td>
+				<td>Hood</td>
+				<td>33</td>
+				<td>$19.99</td>
+				<td>25%</td>
+				<td>+12</td>
+				<td>Dec 10, 2002 5:14 AM</td>
+			</tr>
+			<tr class="even" id="5">
+				<td class="selectable bold">Peter</td>
+				<td>Parker</td>
+				<td>28</td>
+				<td>$9.99</td>
+				<td>20.9%</td>
+				<td>+12.1</td>
+				<td>Jul 6, 2006 8:14 AM</td>
+			</tr>
+		</tbody>
+	</table>
+	<button onclick="getSelectedIds();" class='noDeselect'>Get selected ID's</button>
+	<span>
+		NOTE - the button has the "noDeselect" class to avoid the deselection of the rows when it is clicked
+	</span>
+	<code>
+$(document).ready(function() {
+	$('#table1').select({
+		selectElement:'tr',			// which parent element should be selected. If blank, the element itself will be selected	
+		targetWindow: '#deselectArea',    // defines the element in which you can click to deselect all rows. 
+	});
+	$("#table1").tablesorter(); 
+});
+	</code>
+	<p>
+		Once selected, you can retrieve the ids of each row quite easily using following function
+		<code>
+function getSelectedIds(){
+	var ids = [];
+	$('.selected').each(function(){
+		ids.push(this.id);
+	});
+	return ids.toString();
+}
+		</code> 
+	</p>
+	
+	<h3>
+		Example - selecting the td element instead of the parent row
+	</h3>
+	<p>
+		In some cases you might want to select each individual td cell to do a mass update of a cell using an ajax request. In those cases
+		you leave the option "selectElement" blank and it will select the target element by default. Click drag over the bold columns to select the cells. 
+	</p>
+	<table cellspacing="1" cellpadding="0" border="0" class="tablesorter" id="table2">
+		<thead>
+			<tr>
+				<th class="header">First Name</th>
+				<th class="header">Last Name</th>
+				<th class="header">Age</th>
+				<th class="header">Total</th>
+				<th class="header">Discount</th>
+				<th class="header">Difference</th>
+				<th class="header">Date</th>
+			</tr>
+		</thead>
+		<tbody>
+		<tr class="even" id="1">
+				<td class="selectable bold" id="Bruce">Bruce</td>
+				<td>Almighty</td>
+				<td>45</td>
+				<td class="selectable bold" id="153.19">$153.19</td>
+				<td>44.7%</td>
+				<td class="selectable bold" id="77">+77</td>
+				<td>Jan 18, 2001 9:12 AM</td>
+			</tr>
+			<tr class="odd" id="2">
+				<td class="selectable bold" id="Bruce">Bruce</td>
+				<td>Evans</td>
+				<td>22</td>
+				<td class="selectable bold" id="13.19">$13.19</td>
+				<td>11%</td>
+				<td class="selectable bold" id="100.9">-100.9</td>
+				<td>Jan 18, 2007 9:12 AM</td>
+			</tr>
+			<tr class="even" id="3">
+				<td class="selectable bold" id="Clark">Clark</td>
+				<td>Kent</td>
+				<td>18</td>
+				<td class="selectable bold" id="15.89">$15.89</td>
+				<td>44%</td>
+				<td class="selectable bold" id="26">-26</td>
+				<td>Jan 12, 2003 11:14 AM</td>
+			</tr>
+			<tr class="odd" id="4">
+				<td class="selectable bold" id="John">John</td>
+				<td>Hood</td>
+				<td>33</td>
+				<td class="selectable bold" id="19.99">$19.99</td>
+				<td>25%</td>
+				<td class="selectable bold" id="12">+12</td>
+				<td>Dec 10, 2002 5:14 AM</td>
+			</tr>
+			<tr class="even" id="5">
+				<td class="selectable bold" id="Peter">Peter</td>
+				<td>Parker</td>
+				<td>28</td>
+				<td class="selectable bold" id="9.99">$9.99</td>
+				<td>20.9%</td>
+				<td class="selectable bold" id="12.1">+12.1</td>
+				<td>Jul 6, 2006 8:14 AM</td>
+			</tr>
+		</tbody>
+	</table>
+	<button onclick="getSelectedIds();" class='noDeselect'>Get selected ID's</button>
+	<code>
+$(document).ready(function() {
+	$('#table2').select({
+		targetWindow: '#deselectArea',    // defines the element in which you can click to deselect all rows. 
+	});
+	$("#table2").tablesorter(); 
+});
+	</code>
+	
+	
+	<h2>
+		Known Issues
+	</h2>
+	<p>
+		<ul class="simple">
+			<li>Setting "document.body" as deselect area does not work for some obscure reason. Maybe one of you guys knows and can tell me. Haven't figured it out yet.</li>
+			<li>I haven't refactored the code for a long time. If someone could help me make it look nice and work everywhere, I'd be happy to make the changes.</li>
+		</ul>
+	</p>
+	<p>
+		<br>
+		Please feel free to send me feedback and suggestions to <a href="mailto:mmeier23@gmail.com" class="bold">mmeier23@gmail.com</a>
+	</p>
+</div>
+
+</body>
+</html>
+<script>
+function getSelectedIds(){
+	var ids = [];
+	$('.selected').each(function(){
+		ids.push(this.id);
+	});
+	
+	alert(ids.toString());
+	return ids.toString();
+}
+
+$(document).ready(function() {
+	$('#table1').select({
+		selectElement:'tr',			// which parent element should be selected. If blank, the element itself will be selected	
+		targetWindow: '#deselectArea',    // is needed when you click outside an area
+	});
+	$("#table1").tablesorter();
+
+	// second table select the element and not the parent
+	$('#table2').select({
+		targetWindow: '#deselectArea',    // defines the element in which you can click to deselect all rows. 
+	});
+	$("#table2").tablesorter(); 
+	
+}); 
+
+</script>
+
+
+
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1808340-9");
+pageTracker._trackPageview();
+} catch(err) {}</script>
