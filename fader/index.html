@@ -1,0 +1,205 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta name="author" content="Philip Floetotto">
+	<title>Jquery Fader Plugin by Philip Floetotto</title>
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/simple.css">
+	<link rel="stylesheet" href="css/jquery.fader.css">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.fader.js"></script>
+</head>
+<body>
+
+<div class="limiter">
+	<h1>Jquery Fader - innerfade with navigational control</h1>
+	<p>
+		<b>Author:</b>
+		<a class="external" href="http://philipf.alphacomplex.org/showroom/" target="_new">Philip Floetotto</a>
+		<br/>
+		<b>Version:</b>
+		1.0
+		<br/>
+		<b>Download:</b>
+		<a href="fader.zip" title="Download the zip file"><b>fader.zip</b> (44 kb)</a>
+		<br/>
+	</p>
+	
+	<h2>
+		UPDATE
+	</h2>
+	<p>
+		After I finished the whole project I came across another awesome jquery plugin which basically does the same thing just better :) Have a look at
+		<a href="http://malsup.com/jquery/cycle/" target="_blank">Jquery Cycle Plugin</a> 
+	</p>
+	
+	
+	<h2>
+		Introduction
+	</h2>
+	<p>
+		jQuery.fader is a customization for the innerfade plugin created by <a href="http://medienfreunde.com/lab/innerfade/" target="_blank">http://medienfreunde.com/</a> I needed to have more navigational control and therefore added some extra bits. The plugin automatically creates links to jump to a specific slide and allows the user to browse the slides using "next" and "previous" buttons. 
+		You can stop the autocreation of the buttons and define your own navigational controls. (No example yet) Please have a look at the following examples to find out how it works. 
+	</p>
+	
+	<h3>
+		Simple Fader with Images
+	</h3>
+	<p>
+		The plugin sets the height of the faderContainer automatically by finding the first list element and adding the navigational height to it. An important
+		feature was the "fading" of the navigational buttons. Instead of images, the links contain the number of the slide and can be styled using a css.
+	</p>
+	<code>
+		$('#imageList').fader({
+		    'speed': 600,
+		    'timeout':3000
+		});
+	</code>
+	
+	<ul id="imageList" class="fader images">
+		<li>
+			<img src="img/1.jpg"><br>
+			Testing
+		</li>
+		<li>
+			<img src="img/2.jpg">
+		</li>
+		<li>
+			<img src="img/3.jpg">
+		</li>
+	</ul>
+	
+	
+	<h3>
+		Simple Fader with more complex html
+	</h3>
+	<p>
+		The fader takes any list element and turns it into a "slide". You can use any html like texts, images, links, etc....
+		Once the user interacts with the fader, the autoplay is turned off. By default the fader plugin navigation is set to "wrap", starting with the first one once the end is reached and vice versa.
+	</p>
+	<code>
+		$('#portfolio').fader({
+		    'speed': 600,
+		    'timeout':3000
+		});
+	</code>
+	
+	<ul id="portfolio" class="fader books">
+		<li>
+			<a href="#" class="fleft"><img alt="" class="book" src="img/GOW.jpg"/></a>
+			<div class="text">
+				<h4><a href="#">Jquery Rocks</a></h4>
+				<h5>by Philip Floetotto</h5>
+				<p>Duis in neque vel dui accumsan consectetur. Integer ipsum sem, hendrerit non, faucibus vel, posuere sit amet, tellus. Fusce sagittis nunc nec massa. Suspendisse sed nulla. Nulla facilisi. In mattis, mauris cursus pellentesque placerat, lorem mi hendrerit ligula, et elementum</p>
+			</div>
+		</li>
+		<li>
+			<a href="#" class="fleft"><img alt="" class="book" src="img/GBW.jpg"/></a>
+			<div class="text">
+				<h4><a href="#">The bad Heading 2</a></h4>
+				<h5>by John Mustermann</h5>
+				<p>Nunc ultricies aliquam dui. Maecenas lorem est, pretium at, commodo porttitor, vestibulum in, est. Nam pharetra ipsum sed dolor. Quisque sed eros. Integer purus magna, consectetur et, blandit quis, cursus ut, augue. Mauris sem. Etiam ante ante, sollicitudin tempus, congue id, convallis ut, erat. Lorem ipsum dolor sit amet. </p>
+			</div>
+		</li>
+		<li>
+			<a href="#" class="fleft"><img alt="" class="book" src="img/SF1.jpg"/></a>
+			<div class="text">
+				<h4><a href="#">Monsters and Aliens</a></h4>
+				<h5>by TestAuthor</h5>
+				<p>Vivamus nisl metus, imperdiet a, mattis eu, fermentum sed, massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sem. Suspendisse lacus lorem, volutpat sit amet, condimentum id, mollis vel, leo. Pellentesque ultrices magna eu orci.</p>
+			</div>
+		</li>
+	</ul>
+	
+	
+	
+	<h3>
+		Simple Fader with animationType set to "slide"
+	</h3>
+	<p>
+		You can easily add multiple faders to your page. Each fader is aware of its own slides, navigation controls and it's current state. 
+	</p>
+	<code>
+		$('#portfolio1').fader({
+		    'speed': 600,
+		    'timeout':3000,
+		    'containerHeight':200,
+		    'animationType':'slide'
+		});
+	</code>
+	
+	<ul id="portfolio1" class="fader">
+		<li>
+			<a href="#" class="fleft"><img alt="" class="book" src="img/GOW.jpg"/></a>
+			<div class="text">
+				<h4><a href="#">Jquery Rocks</a></h4>
+				<h5>by Philip Floetotto</h5>
+				<p>Duis in neque vel dui accumsan consectetur. Integer ipsum sem, hendrerit non, faucibus vel, posuere sit amet, tellus. Fusce sagittis nunc nec massa. Suspendisse sed nulla. Nulla facilisi. In mattis, mauris cursus pellentesque placerat, lorem mi hendrerit ligula, et elementum</p>
+			</div>
+		</li>
+		<li>
+			<a href="#" class="fleft"><img alt="" class="book" src="img/GBW.jpg"/></a>
+			<div class="text">
+				<h4><a href="#">The bad Heading 2</a></h4>
+				<h5>by John Mustermann</h5>
+				<p>Nunc ultricies aliquam dui. Maecenas lorem est, pretium at, commodo porttitor, vestibulum in, est. Nam pharetra ipsum sed dolor. Quisque sed eros. Integer purus magna, consectetur et, blandit quis, cursus ut, augue. Mauris sem. Etiam ante ante, sollicitudin tempus, congue id, convallis ut, erat. Lorem ipsum dolor sit amet. </p>
+			</div>
+		</li>
+		<li>
+			<a href="#" class="fleft"><img alt="" class="book" src="img/SF1.jpg"/></a>
+			<div class="text">
+				<h4><a href="#">Monsters and Aliens</a></h4>
+				<h5>by TestAuthor</h5>
+				<p>Vivamus nisl metus, imperdiet a, mattis eu, fermentum sed, massa. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sem. Suspendisse lacus lorem, volutpat sit amet, condimentum id, mollis vel, leo. Pellentesque ultrices magna eu orci.</p>
+			</div>
+		</li>
+	</ul>
+	<h2>
+		Known Issues
+	</h2>
+	<p>
+		<ul class="simple">
+			<li>Position the navigation (above, below, etc)</li>
+			<li>automatic height - not working in IE</li>
+			<li>delete Animation queue when switching between long fades</li>
+			<li>when using the navigation while a transition runs, something goes wrong. Guess it is the queue</li>
+			<li>more cross browser testing</li>
+		</ul>
+	</p>
+	<p>
+		<br>
+		Please feel free to send me feedback and suggestions to <a href="mailto:mmeier23@gmail.com">mmeier23@gmail.com</a>
+	</p>
+</div>
+
+</body>
+</html>
+<script>
+$(document).ready(function() {
+	$('#imageList').fader({
+	    'speed': 600,
+	    'timeout':3000
+	});
+
+	$('#portfolio').fader({
+	    'speed': 600,
+	    'timeout':3000
+	});
+
+	$('#portfolio1').fader({
+	    'speed': 600,
+	    'timeout':3000,
+	    'containerHeight':200,
+	    'animationType':'slide'
+	});
+});
+</script>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-1808340-9");
+pageTracker._trackPageview();
+} catch(err) {}</script>

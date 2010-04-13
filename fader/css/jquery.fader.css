@@ -1,0 +1,77 @@
+@CHARSET "UTF-8";
+
+.fleft{float:left}
+
+h4{
+	font-size: 13px;
+	font-weight: bold;
+}
+
+.fader-jumpNav{
+	margin:0px;
+	padding:0px;
+}
+
+.fader-jumpNav  a{
+	padding:1px 3px;
+	border:1px solid #f3f3f3;
+	cursor:pointer;
+}
+
+.fader-jumpNav  a.active{
+	padding:1px 3px;
+	border:1px solid #cdcdcd;
+	background: #fff;
+}
+
+.fader-navButtons{
+	float:right
+}
+
+.fader-navButtons a{
+	padding: 0px 6px;
+	cursor:pointer;
+	width:10px;
+	height:10px;
+}
+
+
+.fader-nav{
+	padding:3px;
+	background: #f3f3f3;
+	border-bottom:1px solid #cdcdcd;
+}
+.fader-nav .previousButton{
+	background: url(../img/arrowLeft.gif) no-repeat 0px 2px;
+}
+
+.fader-nav .nextButton{
+	background: url(../img/arrowRight.gif) no-repeat 0px 2px;
+}
+
+
+.fader-container{
+	width:400px;
+	overflow:hidden;
+	height:200px;
+	border:1px solid #cdcdcd;
+	margin:10px 0;
+}
+
+ul.fader{
+	clear:both;
+}
+
+.fader li{
+	padding:5px;
+}
+
+.books img{
+	width:93px;
+	height:142px;
+}
+
+.images img{
+	width:390px;
+	height:218px;
+}
