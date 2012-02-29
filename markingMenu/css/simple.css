@@ -58,3 +58,48 @@ div.limiter {
 	text-align:left;
 	width:80%;
 }
+
+/*TABLE CSS*/
+
+#test{width:100%;height:300px;border:1px solid;z-index:10;background:#cdcdcd;}
+.add{background: url(img/plus.gif) no-repeat #ebeae8 4px 50%; padding:6px 2px 2px 15px; }
+.delete{background: url(img/delete.gif) no-repeat #ebeae8 4px 50%; padding:6px 2px 2px 15px; }
+
+table.basic {
+	font-family:arial;
+	background-color: #CDCDCD;
+	margin:10px 0pt 15px;
+	font-size: 8pt;
+	width: 100%;
+	text-align: left;
+}
+table.basic thead tr th, table.basic tfoot tr th {
+	background-color: #e6EEEE;
+	border: 1px solid #FFF;
+	font-size: 8pt;
+	padding: 4px;
+}
+table.basic thead tr .header {
+	background-image: url(bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+table.basic tbody td {
+	color: #3D3D3D;
+	padding: 4px;
+	background-color: #FFF;
+	vertical-align: top;
+}
+table.basic tbody tr.odd td {
+	background-color:#F0F0F6;
+}
+table.basic thead tr .headerSortUp {
+	background-image: url(asc.gif);
+}
+table.basic thead tr .headerSortDown {
+	background-image: url(desc.gif);
+}
+table.basic thead tr .headerSortDown, table.basic thead tr .headerSortUp {
+    background-color: #8dbdd8;
+}

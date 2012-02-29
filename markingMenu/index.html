@@ -1,205 +1,48 @@
 <html>
   <head>
-    <title>A canvas fillRect, strokeRect and clearRect example</title>
+    <title>Jquery Marking Menu</title>
+    <link rel="stylesheet" type="text/css" href="css/markingMenu.css">
+    <link rel="stylesheet" type="text/css" href="css/simple.css">
+
     <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
-    <script type="text/javascript" src="js/pfTools.js"></script>
-    <style>
-    	body{
-    		overflow: hidden;
-    	}
-    	#test{width:100%;height:300px;border:1px solid;z-index:10;background:#cdcdcd;}
-    	canvas{position:absolute;top:-2000px;z-index:1;}
-    	#menu{position:absolute;top:80;width:100px;height:100px;border:1px solid;z-index:11;background:#00f;}
-    	#menu:hover{background:#f0f;}
-    	#markingMenuDiv{
-    		width:140px;
-    		height:140px;
-    		text-align: center;
-    		position:absolute;
-    	}
-    	
-    	#markingMenuDiv div{
-    		height:20px;
-    		width:60px;
-    		position:absolute;
-    		z-index:11;
-    		border:1px solid #333;
-    		font-size: 11px;
-    		padding: 2px;
-    		background: #cdcdcd;
-    	}
-    	
-    	#markingMenuDiv div.hot{
-    		background-color: #ffff99;
-    	}
-    	
-    	#markingMenuDiv div.north{
-    		left:50%;
-    		margin-left:-30px;
-    		top:0px
-    	}
-    	
-    	#markingMenuDiv div.northwest{
-    		left:50%;
-			margin-left:-90px;
-			top:25%;
-    	}
-    	
-    	#markingMenuDiv div.northeast{
-    		left:50%;
-			margin-left:30px;
-			top:25%;
-    	}
-    	
-    	
-    	#markingMenuDiv div.south{
-    		left:50%;
-    		top:100%;
-    		margin-left:-30px;
-    	}
-    	
-    	#markingMenuDiv div.southwest{
-    		left:50%;
-			margin-left:-90px;
-			top:75%;
-    	}
-    	
-    	#markingMenuDiv div.southeast{
-    		left:50%;
-			margin-left:30px;
-			top:75%;
-    	}
-    	
-    	#markingMenuDiv div.west{
-    		left:50%;
-			margin-left:-120px;
-			top:50%;
-    	}
-    	
-    	#markingMenuDiv div.east{
-    		left:100%;
-    		top:50%;
-    	}
-    	
-    	.add{
-    		background: url(img/plus.gif) no-repeat #ebeae8 4px 50%;
-    		padding:6px 2px 2px 15px;
-    	}
-    	
-    	.delete{
-    		background: url(img/delete.gif) no-repeat #ebeae8 4px 50%;
-    		padding:6px 2px 2px 15px;
-    	}
-    	
-    	
-    	
-    	table.tablesorter {
-	font-family:arial;
-	background-color: #CDCDCD;
-	margin:10px 0pt 15px;
-	font-size: 8pt;
-	width: 100%;
-	text-align: left;
-}
-table.tablesorter thead tr th, table.tablesorter tfoot tr th {
-	background-color: #e6EEEE;
-	border: 1px solid #FFF;
-	font-size: 8pt;
-	padding: 4px;
-}
-table.tablesorter thead tr .header {
-	background-image: url(bg.gif);
-	background-repeat: no-repeat;
-	background-position: center right;
-	cursor: pointer;
-}
-table.tablesorter tbody td {
-	color: #3D3D3D;
-	padding: 4px;
-	background-color: #FFF;
-	vertical-align: top;
-}
-table.tablesorter tbody tr.odd td {
-	background-color:#F0F0F6;
-}
-table.tablesorter thead tr .headerSortUp {
-	background-image: url(asc.gif);
-}
-table.tablesorter thead tr .headerSortDown {
-	background-image: url(desc.gif);
-}
-table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
-background-color: #8dbdd8;
-}
-    	
-    	
-    </style>
+    <script type="text/javascript" src="js/jquery.markingMenu.js"></script>
   </head>
 
   <body >
   	<div id="test">
-  		<form>
-	  		<input type="text">
-	  	</form>
-  		<table id="myTable" class="tablesorter"> 
+  		<table id="myTable" class="basic"> 
 			<thead> 
 			<tr> 
 			    <th>Last Name</th> 
 			    <th>First Name</th> 
-			    <th>Email</th> 
-			    <th>Due</th> 
-			    <th>Web Site</th> 
 			</tr> 
 			</thead> 
 			<tbody> 
 			<tr> 
 			    <td>Smith</td> 
 			    <td>John</td> 
-			    <td>jsmith@gmail.com</td> 
-			    <td>$50.00</td> 
-			    <td>http://www.jsmith.com</td> 
 			</tr> 
 			<tr> 
 			    <td>Bach</td> 
 			    <td>Frank</td> 
-			    <td>fbach@yahoo.com</td> 
-			    <td>$50.00</td> 
-			    <td>http://www.frank.com</td> 
 			</tr> 
 			<tr> 
 			    <td>Doe</td> 
 			    <td>Jason</td> 
-			    <td>jdoe@hotmail.com</td> 
-			    <td>$100.00</td> 
-			    <td>http://www.jdoe.com</td> 
 			</tr> 
 			<tr> 
 			    <td>Conway</td> 
 			    <td>Tim</td> 
-			    <td>tconway@earthlink.net</td> 
-			    <td>$50.00</td> 
-			    <td>http://www.timconway.com</td> 
 			</tr> 
 			</tbody> 
 		</table> 
   	</div>
-  
   </body>
+
+
+
 	 <script type="text/javascript">
-		markingMenuConfig = {
-			'items':{
-				'N':{'class':'','text':'show window','command':function(){$.log('north')}},
-				'NW':{'class':'','text':'northwest','command':function(){$.log('northwest')}},
-				'NE':{'class':'','text':'northeast','command':function(){$.log('northeast')}},
-				'E':{'class':'','text':'delete row','command':removeRow},
-				'W':{'class':'','text':'add row','command':addRow},
-				'S':{'class':'','text':'hide window','command':function(){$.log('south')}},
-				'SW':{'class':'','text':'southwest','command':function(){$.log('southwest')}},
-				'SE':{'class':'','text':'southeast','command':function(){$.log('southeast')}}
-			}
-		};
-
-
+		// SAMPLE FUNCTIONS
 		function addRow(){
 			$('#myTable').append($('#myTable tbody tr:first').clone());
 		}
@@ -208,127 +51,13 @@ background-color: #8dbdd8;
 			$('#myTable tbody tr:last').remove();
 		}
 	 
-		$.fn.markingMenu = function(options){
-
-			var config = $.extend({
-				'ctrlKey':true
-		    }, options || {});
-
-			// defaultClasses for the divs
-			config['items']['N']['defaultClass']='north';
-			config['items']['NW']['defaultClass']='northwest';
-			config['items']['NE']['defaultClass']='northeast';
-			config['items']['E']['defaultClass']='east';
-			config['items']['S']['defaultClass']='south';
-			config['items']['SW']['defaultClass']='southwest';
-			config['items']['SE']['defaultClass']='southeast';
-			config['items']['W']['defaultClass']='west';
-			
-			var $markingMenu = $('#markingMenu');
-			if(!$markingMenu.length){
-				// create the marking menu if necessary
-				$markingMenu = $('<canvas id="markingMenu" class="markingMenu" width="800" height="800"></canvas>');
-
-				// read the config and create the 
-				$(document.body).append($markingMenu);
-			}
-			var $markingMenuDiv = $('#markingMenuDiv');
-			if(!$markingMenuDiv.length){
-				_generateMarkingMenuDiv(config);
-			}
-			
-			var ctx = $markingMenu.get(0).getContext('2d');
-			var width = $markingMenu.width();
-			var middle = $markingMenu.width()/2;
-			var divMiddle = $markingMenuDiv.width()/2;
-			var active = 0;
-			var startX = 0; 
-			var startY = 0; 
-
-			var $north = $('.north');
-			var $northwest = $('.northwest');
-			var $northeast = $('.northeast');
-			var $south = $('.south');
-			var $southeast = $('.southeast');
-			var $southwest = $('.southwest');
-			var $east = $('.east');
-			var $west = $('.west');
-			var $allMarkingMenuHotSpots = $('#markingMenuDiv div');
-
-			
-			$(this)
-				.mousedown(function(e){
-					if(e.ctrlKey == config.ctrlKey){
-						$markingMenu.atMouse(e,{top:-middle,left:-middle});
-						$markingMenuDiv
-							.show()
-							.atMouse(e,{top:-divMiddle-10,left:-divMiddle});
-						startX = e.pageX;
-						startY = e.pageY;
-						active = 1;
-						e.preventDefault();
-					}
-				});
-				
-			$('.markingMenu')
-				.mousemove(function(e){
-					if(active){
-						var deltaX = (e.pageX-startX);
-						var deltaY= (e.pageY-startY);
-
-						$allMarkingMenuHotSpots.removeClass('hot');
-
-						ctx.clearRect(0,0,width,width);
-						ctx.beginPath();
-						ctx.moveTo(middle,middle);
-						ctx.lineTo(middle + deltaX,middle + deltaY);
-						ctx.stroke();
-
-						// calculate the length and if very short, don't do anything
-						if((Math.abs(deltaX) + Math.abs(deltaY)) < 32)
-							return true;
-						
-						//calculate the angle
-						var angle = Math.round(Math.atan2(deltaX,deltaY)*180/Math.PI*100)/100;
-						if(angle>=-22.5&&angle<22.5){
-							$south.addClass('hot');
-						}else if(angle<=-22.5&&angle>-67.5){
-							$southwest.addClass('hot');
-						}else if(angle<=-67.5&&angle>-112.5){
-							$west.addClass('hot');
-						}else if(angle<=-112.5&&angle>-147.5){
-							$northwest.addClass('hot');
-						}else if(angle<=167.5&&angle>112.5){
-							$northeast.addClass('hot');
-						}else if(angle>=67.5&&angle<112.5){
-							$east.addClass('hot');
-						}else if(angle<=67.5&&angle>22.5){
-							$southeast.addClass('hot');
-						}else{
-							$north.addClass('hot');
-						};
-					}
-					
-				})
-				.mouseup(function(e){
-					active = 0;
-					$markingMenu.css({'top':-2000});
-					$markingMenuDiv.css({'top':-2000});
-					ctx.clearRect(0,0,width,width);
-					$('.hot').removeClass('hot').click();
-				});
-
-
-			function _generateMarkingMenuDiv(config){
-				$markingMenuDiv = $('<div id="markingMenuDiv" class="markingMenu"></div>');
-				$.each(config.items,function(){
-					var div = $('<div class="'+this.defaultClass+' '+this.class+'">'+this.text+'</div>').click(this.command);
-					$markingMenuDiv.append(div);
-				})
-				$(document.body).append($markingMenuDiv);
-			}
-		}
-		
+		markingMenuConfig = {
+			'items':[
+				{position:'north','text':'Open Dialog','command':function(){console.log('open Dialog')}},
+				{position:'east','text':'Remove Row','command':removeRow},
+				{position:'west','text':'Add Row','command':addRow}
+			]
+		};
       	$('#test').markingMenu(markingMenuConfig);
     </script>
 </html>
